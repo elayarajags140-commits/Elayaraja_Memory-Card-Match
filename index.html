@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Match - Super Modern Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Instructions Screen -->
+    <div id="instructions-screen" class="screen active">
+        <div class="container">
+            <div class="card-box instructions-box">
+                <div class="game-icon">
+                    <div class="icon-circle">🧠</div>
+                </div>
+                <h1 class="game-title">Memory Match</h1>
+                <p class="game-subtitle">Train your brain with 30 challenging levels!</p>
+                
+                <div class="instruction-cards">
+                    <div class="instruction-card">
+                        <div class="instruction-icon">🎯</div>
+                        <h3>Match Pairs</h3>
+                        <p>Find matching cards by flipping them</p>
+                    </div>
+                    <div class="instruction-card">
+                        <div class="instruction-icon">⚡</div>
+                        <h3>Unlock Levels</h3>
+                        <p>Complete levels to unlock new challenges</p>
+                    </div>
+                    <div class="instruction-card">
+                        <div class="instruction-icon">🏆</div>
+                        <h3>Earn Stars</h3>
+                        <p>Perfect performance earns 3 stars!</p>
+                    </div>
+                </div>
+                
+                <button class="btn btn-primary" onclick="showMainMenu()">▶ Let's Play!</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Menu -->
+    <div id="main-menu" class="screen">
+        <div class="container">
+            <h1 class="screen-title">Memory Match</h1>
+            <p class="screen-subtitle">Choose your challenge</p>
+            
+            <div class="menu-grid">
+                <button class="menu-card" onclick="showLevels()">
+                    <div class="menu-icon bg-blue">▶</div>
+                    <h3>Play Levels</h3>
+                    <p>30 amazing levels to conquer</p>
+                </button>
+                
+                <button class="menu-card" onclick="showModes()">
+                    <div class="menu-icon bg-purple">🎮</div>
+                    <h3>Quick Play</h3>
+                    <p>Jump into any mode</p>
+                </button>
+                
+                <button class="menu-card" onclick="showSettings()">
+                    <div class="menu-icon bg-orange">⚙</div>
+                    <h3>Settings</h3>
+                    <p>Customize your game</p>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Levels Screen -->
+    <div id="levels-screen" class="screen">
+        <div class="container">
+            <div class="header">
+                <button class="btn-back" onclick="showMainMenu()">← Back</button>
+                <div class="header-center">
+                    <h1 class="screen-title">Select Level</h1>
+                    <div class="progress-info">
+                        <span id="level-progress">0/30 Complete</span>
+                        <span id="total-stars">⭐ 0</span>
+                    </div>
+                </div>
+                <div></div>
+            </div>
+            
+            <div id="levels-grid" class="levels-grid"></div>
+        </div>
+    </div>
+
+    <!-- Game Modes (Quick Play) -->
+    <div id="modes-screen" class="screen">
+        <div class="container">
+            <div class="header">
+                <button class="btn-back" onclick="showMainMenu()">← Back</button>
+                <h1 class="screen-title">Quick Play</h1>
+                <div></div>
+            </div>
+            
+            <div class="modes-grid">
+                <div class="mode-card">
+                    <div class="mode-icon bg-blue">🎮</div>
+                    <h3>Classic Mode</h3>
+                    <p>Choose your difficulty</p>
+                    <div class="mode-options">
+                        <button class="mode-btn" onclick="startQuickGame(4)">Easy (4×4)</button>
+                        <button class="mode-btn" onclick="startQuickGame(6)">Medium (6×6)</button>
+                        <button class="mode-btn" onclick="startQuickGame(8)">Hard (8×8)</button>
+                    </div>
+                </div>
+                
+                <div class="mode-card">
+                    <div class="mode-icon bg-orange">⏱</div>
+                    <h3>Time Attack</h3>
+                    <p>Race against the clock</p>
+                    <div class="mode-options">
+                        <button class="mode-btn" onclick="startQuickGame(4, 60)">60 seconds</button>
+                        <button class="mode-btn" onclick="startQuickGame(6, 45)">45 seconds</button>
+                        <button class="mode-btn" onclick="startQuickGame(8, 30)">30 seconds</button>
+                    </div>
+                </div>
+                
+                <div class="mode-card">
+                    <div class="mode-icon bg-green">🎯</div>
+                    <h3>Themed Cards</h3>
+                    <p>Choose your style</p>
+                    <div class="mode-options">
+                        <button class="mode-btn" onclick="startQuickGame(4, null, 'animals')">Animals 🦁</button>
+                        <button class="mode-btn" onclick="startQuickGame(4, null, 'food')">Food 🍕</button>
+                        <button class="mode-btn" onclick="startQuickGame(4, null, 'space')">Space 🚀</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="game-screen" class="screen">
+        <div class="container">
+            <div class="game-header">
+                <button class="btn-back" onclick="exitGame()">← Exit</button>
+                
+                <div class="level-info">
+                    <span id="current-level-display">Level 1</span>
+                </div>
+                
+                <div class="game-stats">
+                    <div class="stat-box">
+                        <span class="stat-icon">⏱</span>
+                        <span id="timer">0s</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-icon">🎯</span>
+                        <span id="moves">0</span>
+                    </div>
+                    <button class="stat-box" onclick="toggleSound()">
+                        <span id="sound-icon">🔊</span>
+                    </button>
+                    <button class="stat-box" onclick="resetGame()">
+                        <span>🔄</span>
+                    </button>
+                </div>
+            </div>
+            
+            <div id="game-board" class="game-board"></div>
+        </div>
+    </div>
+
+    <!-- Settings Screen -->
+    <div id="settings-screen" class="screen">
+        <div class="container">
+            <div class="header">
+                <button class="btn-back" onclick="showMainMenu()">← Back</button>
+                <h1 class="screen-title">Settings</h1>
+                <div></div>
+            </div>
+            
+            <div class="settings-box">
+                <div class="setting-card">
+                    <div class="setting-header">
+                        <div class="setting-icon bg-purple">🎨</div>
+                        <h3>Background Theme</h3>
+                    </div>
+                    <div class="theme-grid">
+                        <button class="theme-option gradient1 active" onclick="changeTheme('gradient1')">
+                            <span>Purple Dream</span>
+                        </button>
+                        <button class="theme-option gradient2" onclick="changeTheme('gradient2')">
+                            <span>Ocean Blue</span>
+                        </button>
+                        <button class="theme-option gradient3" onclick="changeTheme('gradient3')">
+                            <span>Emerald Forest</span>
+                        </button>
+                        <button class="theme-option gradient4" onclick="changeTheme('gradient4')">
+                            <span>Sunset Glow</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="setting-card">
+                    <div class="setting-row">
+                        <div>
+                            <div class="setting-icon bg-blue">🔊</div>
+                            <div>
+                                <h3>Sound Effects</h3>
+                                <p>Enable or disable game sounds</p>
+                            </div>
+                        </div>
+                        <label class="toggle">
+                            <input type="checkbox" id="sound-toggle" checked onchange="toggleSound()">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="setting-card">
+                    <div class="setting-row">
+                        <div>
+                            <div class="setting-icon bg-red">🗑</div>
+                            <div>
+                                <h3>Reset Progress</h3>
+                                <p>Clear all level progress & stars</p>
+                            </div>
+                        </div>
+                        <button class="btn btn-danger" onclick="resetProgress()">Reset</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Win Modal -->
+    <div id="win-modal" class="modal">
+        <div class="modal-content">
+            <div class="trophy-icon">🏆</div>
+            <h2 id="modal-title">Level Complete!</h2>
+            
+            <div class="stars" id="stars-display"></div>
+            
+            <div class="win-stats">
+                <div class="win-stat">
+                    <div class="stat-label">Time</div>
+                    <div class="stat-value" id="final-time">0s</div>
+                </div>
+                <div class="win-stat">
+                    <div class="stat-label">Moves</div>
+                    <div class="stat-value" id="final-moves">0</div>
+                </div>
+            </div>
+            
+            <div id="new-best" class="new-best">🎉 New Best Score!</div>
+            
+            <div class="modal-buttons">
+                <button class="btn btn-secondary" onclick="resetGame()">Retry</button>
+                <button class="btn btn-primary" id="next-level-btn" onclick="nextLevel()">Next Level</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
