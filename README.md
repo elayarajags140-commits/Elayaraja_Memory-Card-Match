@@ -1,9 +1,5 @@
 ## Title - Memory Card Match
-# Team members:
-     MEMBERS             ROLE
-   *Varunitha     -   HTML/CSS
-   *Elayaraja     -   Game logic and Core functions
-   *Gopikrishnan  -   DOM Manipulation & Event Handling
+Elayaraja G
 ------
 "# 🎮 Memory Match - Super Modern Game
 
